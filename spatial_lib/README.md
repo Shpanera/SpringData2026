@@ -16,3 +16,6 @@ from spatial_lib import calculate_area
 coords = [(0,0), (1,0), (1,1), (0,1)]
 print(calculate_area(coords)) 
 ```
+
+## Ссылка на pypi.org
+https://pypi.org/project/spatial_lib_lab4/0.1.0/
