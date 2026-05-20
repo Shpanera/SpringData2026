@@ -1,5 +1,5 @@
 [project]
-name = "spatial_lib"
+name = "spatial_lib_lab4"
 version = "0.1.0"
 description = "Library for processing urban spatial data"
 authors = [
