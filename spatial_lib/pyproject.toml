@@ -1,17 +1,18 @@
-[tool.poetry]
-name = "spatial-lib"
+[project]
+name = "spatial_lib"
 version = "0.1.0"
 description = "Library for processing urban spatial data"
-authors = ["Ratmanova Viktoriia <vikaratmanova@gmail.com>"]
+authors = [
+    {name = "Ratmanova Viktoriia",email = "vikaratmanova@gmail.com"}
+]
 license = "MIT"
 readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
 
-[tool.poetry.dependencies]
-python = ">=3.9,<3.15"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.0.0"
+[tool.poetry]
+packages = [{include = "spatial_lib", from = "src"}]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"

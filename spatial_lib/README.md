@@ -9,8 +9,9 @@ pip install spatial_lib
 ```
 
 ## Пример
+
 ```
-from my_spatial_lib import calculate_area
+from spatial_lib import calculate_area
 
 coords = [(0,0), (1,0), (1,1), (0,1)]
 print(calculate_area(coords)) 
