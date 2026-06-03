@@ -6,7 +6,7 @@ from ..utils.validators import check_not_empty, check_same_crs
 
 def coverage_ratio(
     districts_gdf: gpd.GeoDataFrame, objects_gdf: gpd.GeoDataFrame, radius: float
-) -> float:
+) -> gpd.GeoDataFrame:
     """
     Calculates the fraction for each district covered by the buffers.
 
@@ -56,7 +56,7 @@ def uncovered_areas(
             objects around which buffers are created. Must have the same coordinate system as the districts_gdf.
         radius (float): The radius of the buffer zone in meters.
     Return:
-        result_gdf (gpd.GeoDataFrame): A copy of the districts_gdf with the added 'coverage_ratio' column. Number (float) from 0 to 1.
+        gpd.GeoDataFrame: GeoDataFrame with geometries of uncovered district parts.
     """
     check_not_empty(districts_gdf, "districts_gdf")
     check_not_empty(objects_gdf, "objects_gdf")
