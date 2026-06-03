@@ -1,7 +1,7 @@
 from src.lab6_app.common.config import RuntimeConfig, StartupConfig
 from src.lab6_app.services.geo_analysis_service import GeoAnalysisService
 from src.lab6_app.services.runtime_config_service import RuntimeConfigService
-
+from src.lab6_app.services.territory_service import TerritoryService
 
 class DependencyContainer(dict):
     def get_required(self, key: str):
@@ -19,4 +19,5 @@ def init_dependencies() -> DependencyContainer:
     container["app_config"] = startup_config.to_model()
     container["runtime_config_service"] = runtime_service
     container["geo_analysis_service"] = GeoAnalysisService(runtime_service)
+    container["territory_service"] = TerritoryService()
     return container

@@ -4,6 +4,10 @@ from src.lab6_app.schemas.app_config import AppConfigModel
 from src.lab6_app.services.geo_analysis_service import GeoAnalysisService
 from src.lab6_app.services.runtime_config_service import RuntimeConfigService
 
+from src.lab6_app.services.territory_service import TerritoryService
+
+def get_territory_service(request: Request) -> TerritoryService:
+    return request.app.state.dependencies.get_required("territory_service")
 
 def get_system_service(request: Request) -> dict:
     return request.app.state.dependencies

@@ -8,6 +8,10 @@ from src.lab6_app.routes.analysis import router as analysis_router
 from src.lab6_app.routes.config import router as config_router
 from src.lab6_app.init_dependencies import init_dependencies
 
+from src.lab6_app.routes.territories import router as territories_router
+
+
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -36,3 +40,4 @@ async def ping_server():
 
 app.include_router(config_router)
 app.include_router(analysis_router)
+app.include_router(territories_router)
