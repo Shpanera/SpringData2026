@@ -4,7 +4,7 @@ from datetime import datetime
 from decimal import Decimal
 
 from geoalchemy2 import Geometry
-from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, text
+from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, UniqueConstraint, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.lab6_app.common.db import Base
@@ -31,6 +31,9 @@ class Territory(Base):
 
 class TerritoryMetric(Base):
     __tablename__ = "territory_metrics"
+    __table_args__ = (
+        UniqueConstraint("territory_id", "year", name="uq_territory_metrics_territory_year"),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     territory_id: Mapped[int] = mapped_column(

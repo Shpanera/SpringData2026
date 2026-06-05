@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
+from fastapi import APIRouter, Depends, Query, Response, status
 from sqlalchemy.orm import Session
 
 from src.lab6_app.common.db import get_db
@@ -54,23 +54,17 @@ def get_territory(
     db: Session = Depends(get_db),
     service: TerritoryService = Depends(get_territory_service),
 ) -> TerritoryRead:
-    territory = service.get_territory(db, territory_id)
-    if territory is None:
-        raise HTTPException(status_code=404, detail="Territory not found")
-    return territory
+    return service.get_territory(db, territory_id)
 
 
-@router.put("/{territory_id}", response_model=TerritoryRead)
+@router.patch("/{territory_id}", response_model=TerritoryRead)
 def update_territory(
     territory_id: int,
     data: TerritoryUpdate,
     db: Session = Depends(get_db),
     service: TerritoryService = Depends(get_territory_service),
 ) -> TerritoryRead:
-    territory = service.update_territory(db, territory_id, data)
-    if territory is None:
-        raise HTTPException(status_code=404, detail="Territory not found")
-    return territory
+    return service.update_territory(db, territory_id, data)
 
 
 @router.delete("/{territory_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -79,9 +73,7 @@ def delete_territory(
     db: Session = Depends(get_db),
     service: TerritoryService = Depends(get_territory_service),
 ) -> Response:
-    deleted = service.delete_territory(db, territory_id)
-    if not deleted:
-        raise HTTPException(status_code=404, detail="Territory not found")
+    service.delete_territory(db, territory_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
@@ -96,9 +88,7 @@ def create_metric(
     db: Session = Depends(get_db),
     service: TerritoryService = Depends(get_territory_service),
 ) -> TerritoryMetricRead:
-    territory = service.get_territory(db, territory_id)
-    if territory is None:
-        raise HTTPException(status_code=404, detail="Territory not found")
+    service.get_territory(db, territory_id)
     return service.create_metric(db, territory_id, data)
 
 
@@ -108,13 +98,11 @@ def list_metrics_by_territory(
     db: Session = Depends(get_db),
     service: TerritoryService = Depends(get_territory_service),
 ) -> list[TerritoryMetricRead]:
-    territory = service.get_territory(db, territory_id)
-    if territory is None:
-        raise HTTPException(status_code=404, detail="Territory not found")
+    service.get_territory(db, territory_id)
     return service.list_metrics_by_territory(db, territory_id)
 
 
-@router.put("/{territory_id}/metrics/{metric_id}", response_model=TerritoryMetricRead)
+@router.patch("/{territory_id}/metrics/{metric_id}", response_model=TerritoryMetricRead)
 def update_metric(
     territory_id: int,
     metric_id: int,
@@ -122,18 +110,8 @@ def update_metric(
     db: Session = Depends(get_db),
     service: TerritoryService = Depends(get_territory_service),
 ) -> TerritoryMetricRead:
-    territory = service.get_territory(db, territory_id)
-    if territory is None:
-        raise HTTPException(status_code=404, detail="Territory not found")
-
-    metric = service.get_metric(db, metric_id)
-    if metric is None or metric.territory_id != territory_id:
-        raise HTTPException(status_code=404, detail="Metric not found")
-
-    updated_metric = service.update_metric(db, metric_id, data)
-    if updated_metric is None:
-        raise HTTPException(status_code=404, detail="Metric not found")
-    return updated_metric
+    service.get_territory(db, territory_id)
+    return service.update_metric(db, territory_id, metric_id, data)
 
 
 @router.delete("/{territory_id}/metrics/{metric_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -143,15 +121,6 @@ def delete_metric(
     db: Session = Depends(get_db),
     service: TerritoryService = Depends(get_territory_service),
 ) -> Response:
-    territory = service.get_territory(db, territory_id)
-    if territory is None:
-        raise HTTPException(status_code=404, detail="Territory not found")
-
-    metric = service.get_metric(db, metric_id)
-    if metric is None or metric.territory_id != territory_id:
-        raise HTTPException(status_code=404, detail="Metric not found")
-
-    deleted = service.delete_metric(db, metric_id)
-    if not deleted:
-        raise HTTPException(status_code=404, detail="Metric not found")
+    service.get_territory(db, territory_id)
+    service.delete_metric(db, territory_id, metric_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
