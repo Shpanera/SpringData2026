@@ -1,0 +1,18 @@
+[project]
+name = "spatial_lib_lab4"
+version = "0.1.0"
+description = "Library for processing urban spatial data"
+authors = [
+    {name = "Ratmanova Viktoriia",email = "vikaratmanova@gmail.com"}
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.poetry]
+packages = [{include = "spatial_lib", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

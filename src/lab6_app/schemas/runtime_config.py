@@ -1,0 +1,19 @@
+from typing import Literal
+
+from pydantic import BaseModel, Field
+
+
+class RuntimeConfigModel(BaseModel):
+    log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = Field(default="INFO")
+    feature_flag: bool = Field(default=False)
+    maintenance_mode: bool = Field(default=False)
+    runtime_message: str = Field(default="Приложение работает в штатном режиме")
+    default_buffer_radius: float = Field(default=200.0, ge=0)
+
+
+class RuntimeConfigUpdateModel(BaseModel):
+    log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"]
+    feature_flag: bool
+    maintenance_mode: bool
+    runtime_message: str = Field(min_length=1)
+    default_buffer_radius: float = Field(ge=0)
